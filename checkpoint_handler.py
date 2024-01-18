@@ -52,7 +52,7 @@ class CheckpointHandler:
     def load_mapper(mapper_path: Path) -> Tuple[RunConfig, NeTIMapper]:
         mapper_ckpt = torch.load(mapper_path, map_location="cpu")
         cfg = pyrallis.decode(RunConfig, mapper_ckpt['cfg'])
-        neti_mapper = NeTIMapper(output_dim=768,
+        neti_mapper = NeTIMapper(output_dim=cfg.model.mapper_output_dim,
                                  use_nested_dropout=cfg.model.use_nested_dropout,
                                  nested_dropout_prob=cfg.model.nested_dropout_prob,
                                  norm_scale=cfg.model.target_norm,

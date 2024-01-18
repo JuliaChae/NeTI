@@ -52,7 +52,10 @@ class NeTICLIPTextEmbeddings(nn.Module):
 
             # Overwrite the index of the placeholder token with the mapper output for each entry in the batch
             learnable_idxs = (input_ids == batch.placeholder_token_id).nonzero(as_tuple=True)[1]
-            inputs_embeds[torch.arange(input_ids.shape[0]), learnable_idxs] = mapper_outputs
+            try:
+                inputs_embeds[torch.arange(input_ids.shape[0]), learnable_idxs] = mapper_outputs
+            except:
+                breakpoint()
 
         position_embeddings = self.position_embedding(position_ids)
         embeddings = inputs_embeds + position_embeddings

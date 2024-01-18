@@ -241,7 +241,7 @@ class Coach:
             loaded_iteration = int(self.cfg.model.mapper_checkpoint_path.stem.split("-")[-1])
             print(f"Loaded NeTI mapper checkpoint from iteration: {loaded_iteration}")
         else:
-            neti_mapper = NeTIMapper(output_dim=768,
+            neti_mapper = NeTIMapper(output_dim=self.cfg.model.mapper_output_dim,
                                      use_nested_dropout=self.cfg.model.use_nested_dropout,
                                      nested_dropout_prob=self.cfg.model.nested_dropout_prob,
                                      norm_scale=self.cfg.model.target_norm,
@@ -317,7 +317,8 @@ class Coach:
                                           repeats=self.cfg.data.repeats,
                                           learnable_property=self.cfg.data.learnable_property,
                                           center_crop=self.cfg.data.center_crop,
-                                          set="train")
+                                          set="train", 
+                                          num_training_imgs=self.cfg.data.num_training_imgs)
         return dataset
 
     def _init_dataloader(self, dataset: Dataset) -> torch.utils.data.DataLoader:

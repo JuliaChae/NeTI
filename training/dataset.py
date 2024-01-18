@@ -43,7 +43,8 @@ class TextualInversionDataset(Dataset):
                  flip_p: float = 0.5,
                  set: str = "train",
                  placeholder_token: str = "*",
-                 center_crop: bool = False):
+                 center_crop: bool = False,
+                 num_training_imgs = 10):
         self.data_root = data_root
         self.tokenizer = tokenizer
         self.learnable_property = learnable_property
@@ -52,8 +53,9 @@ class TextualInversionDataset(Dataset):
         self.center_crop = center_crop
         self.flip_p = flip_p
 
-        self.image_paths = list(self.data_root.glob("*"))
-
+        self.image_paths = list(self.data_root.glob("*.jpg"))
+        self.image_paths.sort()
+        self.image_paths = self.image_paths[:num_training_imgs]
         self.num_images = len(self.image_paths)
         self._length = self.num_images
 

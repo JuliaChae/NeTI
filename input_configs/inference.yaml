@@ -1,5 +1,5 @@
-input_dir: /path/to/experiments/exp_name
-prompts_file_path: /path/to/prompts.txt
+input_dir: /data/vision/beery/fgg_ai/output/test
+prompts_file_path: input_configs/prompts.txt
 iteration: 250
-seeds: [ 0, 1, 2, 3 ]
+#seeds: [ 0, 1, 2, 3 ]
 torch_dtype: fp16

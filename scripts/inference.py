@@ -53,7 +53,7 @@ class InferenceConfig:
         self._set_prompts()
         self._set_input_paths()
         self.inference_dir.mkdir(exist_ok=True, parents=True)
-        if type(self.truncation_idxs) == int:
+        if self.truncation_idxs is None or type(self.truncation_idxs) == int:
             self.truncation_idxs = [self.truncation_idxs]
         self.torch_dtype = torch.float16 if self.torch_dtype == "fp16" else torch.float32
 
@@ -90,6 +90,7 @@ def main(infer_cfg: InferenceConfig):
                                    placeholder_token=placeholder_token,
                                    placeholder_token_id=placeholder_token_id,
                                    torch_dtype=infer_cfg.torch_dtype)
+    infer_cfg.seeds = list(range(0,100))
     for prompt in infer_cfg.prompts:
         output_path = infer_cfg.inference_dir / prompt.format(placeholder_token)
         output_path.mkdir(exist_ok=True, parents=True)
@@ -106,7 +107,7 @@ def main(infer_cfg: InferenceConfig):
                 save_name = f"{prompt.format(placeholder_token)}_truncation_{truncation_idx}.png"
             else:
                 save_name = f"{prompt.format(placeholder_token)}.png"
-            prompt_image.save(infer_cfg.inference_dir / save_name)
+            #prompt_image.save(infer_cfg.inference_dir / save_name)
 
 
 def run_inference(prompt: str,

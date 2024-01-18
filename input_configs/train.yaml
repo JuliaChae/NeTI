@@ -1,14 +1,15 @@
 log:
-  exp_name: exp_name
-  exp_dir: /path/to/experiments
+  exp_name: test
+  exp_dir: /data/vision/beery/fgg_ai/output/
   save_steps: 250
 data:
-  train_data_dir: /path/to/data/concept
+  train_data_dir: /data/vision/beery/fgg_ai/inat2021_filtered/sample_train_subset/03890_Animalia_Chordata_Aves_Passeriformes_Icteridae_Icterus_wagleri
   placeholder_token: <concept-name>
-  super_category_token: super_category
+  super_category_token: bird
   dataloader_num_workers: 8
+  num_training_imgs: 10
 model:
-  pretrained_model_name_or_path: CompVis/stable-diffusion-v1-4
+  pretrained_model_name_or_path: runwayml/stable-diffusion-v1-5 #stabilityai/stable-diffusion-2 #stabilityai/stable-diffusion-2 #CompVis/stable-diffusion-v1-4
   use_nested_dropout: True
   nested_dropout_prob: 0.5
   normalize_mapper_output: True
@@ -17,9 +18,9 @@ model:
   num_pe_time_anchors: 10
   output_bypass: True
 eval:
-  validation_steps: 250
+  validation_steps: 250 #250
 optim:
-  max_train_steps: 1000
+  max_train_steps: 500 #1000
   learning_rate: 1e-3
   train_batch_size: 2
   gradient_accumulation_steps: 4

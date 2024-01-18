@@ -44,6 +44,8 @@ class DataConfig:
     resolution: int = 512
     # Whether to center crop images before resizing to resolution
     center_crop: bool = False
+    # Number of training images
+    num_training_imgs: int = 10
 
 
 @dataclass
@@ -71,6 +73,8 @@ class ModelConfig:
     revision: Optional[str] = None
     # Whether training should be resumed from a previous checkpoint.
     mapper_checkpoint_path: Optional[Path] = None
+    # Mapper output dimension for other SD versions
+    mapper_output_dim: int = 768
 
     def __post_init__(self):
         if self.pe_sigmas is not None:
